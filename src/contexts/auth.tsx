@@ -58,13 +58,13 @@ export const AuthProvider = ({ children }: any) => {
         if (!isLoading) {
             restoreSession(token);
         }
-    }, [isLoading, isAuthenticated, children.type.requiresAuth])
+    }, [isLoading, isAuthenticated, children.type.requiresAuth]) // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         const token = Cookies.get("token");
         if (!token) return;
         restoreSession(token);
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     //This function is called when new user is registered and when users restore session
     const restoreSession = async (token: string) => {

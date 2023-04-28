@@ -1,15 +1,14 @@
-import Head from 'next/head'
-import { Fragment, useState, MouseEvent, useEffect } from 'react'
-import { Container, FormContainer, Line, Logo, Row } from '@/styles/login.module.ts'
-import { ButtonIcon, FieldError, StyledButton, StyledButtonSecondary, StyledInput, StyledLink } from '@/styles/Global'
-import queryString from 'query-string'
 import CheckRender from '@/components/CheckRender'
-import { useAuth } from '@/contexts/auth'
 import LoadingScreen from '@/components/LoadingScreen'
+import { useAuth } from '@/contexts/auth'
+import { ButtonIcon, FieldError, StyledButton, StyledButtonSecondary, StyledInput, StyledLink } from '@/styles/Global'
+import { Container, FormContainer, Line, Logo, Row } from '@/styles/login.module.ts'
+import { zodResolver } from '@hookform/resolvers/zod'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm, SubmitHandler, } from "react-hook-form";
+import { Fragment, useEffect } from 'react'
+import { SubmitHandler, useForm, } from "react-hook-form"
+import { z } from 'zod'
 
 const FormSchema = z.object({
   email: z.string().email({ message: "Insert valid email address" }),
@@ -102,7 +101,7 @@ export default function SignIn() {
           <br />
           <br />
           <span>
-            Don't have an account? <StyledLink href={"/signup"}>Sign up</StyledLink>
+            Don&apos;t have an account? <StyledLink href={'/signup'}>Sign up</StyledLink>
           </span>
         </FormContainer>
       </Container>
