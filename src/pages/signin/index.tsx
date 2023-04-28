@@ -1,23 +1,33 @@
 import Head from 'next/head'
-import { Fragment, useState } from 'react'
+import { Fragment, useState, MouseEvent, useEffect } from 'react'
 import { Container, FormContainer, Line, Logo, Row } from '@/styles/login.module.ts'
-import { ButtonIcon, StyledButton, StyledButtonSecondary, StyledInput, StyledLink } from '@/styles/Global'
+import { ButtonIcon, FieldError, StyledButton, StyledButtonSecondary, StyledInput, StyledLink } from '@/styles/Global'
 import queryString from 'query-string'
 import CheckRender from '@/components/CheckRender'
+import { useAuth } from '@/contexts/auth'
+import LoadingScreen from '@/components/LoadingScreen'
+import { useRouter } from 'next/router'
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm, SubmitHandler, } from "react-hook-form";
+
+const FormSchema = z.object({
+  email: z.string().email({ message: "Insert valid email address" }),
+  password: z.string().min(1, { message: "Password are required" }),
+}).required();
+type FormDataType = z.infer<typeof FormSchema>;
 
 export default function SignIn() {
-  const [isNextClicked, setIsNextClicked] = useState<boolean>(false)
+  const router = useRouter()
+  const { signIn, isLoading, isAuthenticated } = useAuth();
 
-  const handleNextClick = () => {
-    if (isNextClicked) {
-  
-    } else {
-      setIsNextClicked(true)
-    }
-  }
+  const { register, handleSubmit, getFieldState, getValues, formState: { errors } } = useForm<FormDataType>({
+    resolver: zodResolver(FormSchema)
+  });
 
-  const sumStrings = (a: string, b: string) => `${a} ${b}`;
-  
+  const onSubmit: SubmitHandler<FormDataType> = data => handleSignIn(data)
+
+
   const handleGithubSignIn = () => {
     const params = queryString.stringify({
       client_id: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID,
@@ -27,7 +37,26 @@ export default function SignIn() {
     });
     window.location.href = `https://github.com/login/oauth/authorize?${params}`;
   }
-  
+
+  const handleSignIn = async (props: FormDataType) => {
+    try {
+      await signIn(
+        props.email,
+        props.password
+      )
+    } catch (error) {
+      alert('error')
+    }
+  }
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push('/');
+    }
+  }, [isAuthenticated])
+
+  if (isLoading || isAuthenticated) return <LoadingScreen />
+
   return (
     <Fragment>
       <Head>
@@ -60,14 +89,14 @@ export default function SignIn() {
             </span>
             <Line />
           </Row>
-
-          <StyledInput type="email" placeholder='Email' />
+          <StyledInput id="email" type='email' placeholder='Email' {...register("email", { required: true })} />
+          <FieldError>{errors.email?.message}</FieldError>
           <br />
-          <CheckRender allowed={isNextClicked}>
-            <StyledInput type="password" placeholder='Password' />
+          <CheckRender allowed={getValues("email")?.length > 0 && !getFieldState("email").invalid}>
+            <StyledInput type="password" placeholder='Password' id="password"  {...register("password", { required: true })} />
           </CheckRender>
           <br />
-          <StyledButton onClick={handleNextClick}>Next</StyledButton>
+          <StyledButton onClick={handleSubmit(onSubmit)}>Next</StyledButton>
           <br />
           <StyledButtonSecondary>Forgot password?</StyledButtonSecondary>
           <br />

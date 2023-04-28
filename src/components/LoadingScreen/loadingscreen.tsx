@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { Container, Logo } from '@/styles/home.module'
+import { Container, Logo } from '@/styles/loadingscreen.module'
 import 'animate.css';
 
 export default function LoadingScreen() {

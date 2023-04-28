@@ -9,6 +9,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signupService } from '@/api/auth'
 import { useAuth } from '@/contexts/auth'
+import LoadingScreen from '@/components/LoadingScreen'
 
 const FormSchema = z.object({
   fullName: z.string().min(1, { message: "Full name is required" }),
@@ -19,7 +20,7 @@ type FormDataType = z.infer<typeof FormSchema>;
 
 const SignUp = () => {
   const router = useRouter()
-  const { restoreSession } = useAuth();
+  const { restoreSession, isLoading } = useAuth();
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormDataType>({
     resolver: zodResolver(FormSchema)
@@ -52,6 +53,8 @@ const SignUp = () => {
       alert('error')
     }
   }
+
+  if (isLoading) return <LoadingScreen />
 
   return (
     <Fragment>

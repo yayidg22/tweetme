@@ -15,14 +15,31 @@ export const Container = styled('div')({
     overflow: 'hidden'
 })
 
+export const Banner = styled('div')({
+    display: 'flex',
+    flexDirection: 'column',
+    maxWidth: '700px',
+    height:'180px',
+    width: '100%',
+    backgroundColor:'rgb(71 85 105)',
+})
+
 export const TweetHeader = styled('div')({
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
+    justifyContent:'end',
+    height:'150px',
     maxWidth: '700px',
     width: '100%',
+    backgroundColor:'black',
     borderWidth: "1px",
     borderColor: 'gray',
     borderStyle: 'solid',
+    'span':{
+        margin:'15px',
+        fontSize: '1.5rem',
+        fontWeight:'500'
+    }
 })
 
 export const TweetInput = styled('input')({
@@ -83,6 +100,7 @@ export const Line = styled('div')({
 export const TweetItemContainer = styled('div')({
     borderWidth: "1px",
     borderColor: 'gray',
+    alignItems:'center',
     borderStyle: 'solid',
     width: '100%',
     display: 'flex',
@@ -91,9 +109,14 @@ export const TweetItemContainer = styled('div')({
 
 export const UserImage = styled(Image)({
     cursor:'pointer',
+    position:'absolute',
+    borderWidth: "3px",
+    borderColor: 'black',
+    borderStyle: 'solid',
     margin: '15px',
-    width: '60px',
-    height: '60px',
+    marginTop:'60px',
+    width: '130px',
+    height: '130px',
     borderRadius: "100%",
     objectFit: 'cover',
     aspectRatio: '3/2'
@@ -102,7 +125,6 @@ export const UserImage = styled(Image)({
 export const TextContainer = styled('div')({
     display: 'flex',
     flexDirection: 'column',
-    margin: '10px',
     fontWeight: '400',
     color: 'GrayText',
     'p': {

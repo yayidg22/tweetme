@@ -21,4 +21,6 @@ export const unauthenticateAPI = () => {
     api.interceptors.request.eject(authInterceptorID);
 };
 
+export const fetcher = (url: string) => api.get(url).then(({data}) => data);
+
 export default api

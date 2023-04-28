@@ -9,14 +9,12 @@ export const signupService = (request: ISignupServiceRequest) => {
 }
 
 export const getUserDataService = () => {
-    return api.get('/auth/getuserdata').then(({ data }: IGetUserDataServiceResponse) => data);
+    return api.get('/auth/user').then(({ data }: IGetUserDataServiceResponse) => data);
 }
-
 interface ISigninServiceRequest {
     email: string;
     password: string;
 }
-
 interface ISigninServiceResponse {
     data: {
         ok: boolean;
@@ -24,10 +22,11 @@ interface ISigninServiceResponse {
             token: string;
             name: string;
             email: string;
+            selectedCharacter:number;
+            alternalName:string;
         }
     },
 }
-
 interface ISignupServiceRequest {
     name: string;
     email: string;
@@ -44,7 +43,6 @@ interface ISignupServiceResponse {
         }
     },
 }
-
 interface IGetUserDataServiceResponse {
     data: {
         ok: boolean;
@@ -52,10 +50,9 @@ interface IGetUserDataServiceResponse {
             user: {
                 name: string;
                 email: string;
+                selectedCharacter:number;
+                alternalName:string;
             }
         }
     },
 }
-
-
-
