@@ -37,7 +37,7 @@ const Home = () => {
     if (!postsData) {
       return
     }
-    return [...postsData].reverse().map(item => <TweetItem description={item.description} alternalName={item?.user?.alternalName as string} createdDate={item.created_date} id={item.id} selectedCharacter={item.user?.selectedCharacter as number} />)
+    return [...postsData].reverse().map(item => <TweetItem key={item.id} description={item.description} alternalName={item?.user?.alternalName as string} createdDate={item.created_date} id={item.id} selectedCharacter={item.user?.selectedCharacter as number} />)
   }, [PostsList])
 
   return (

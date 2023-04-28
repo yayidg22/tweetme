@@ -21,7 +21,7 @@ export const getServerSideProps: GetServerSideProps<{ data: Data }> = async (con
 
 const User = ({ data }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     const postsData: IPost[] = data.posts;
-    const TweetList = [...postsData].reverse().map(item => <TweetItem description={item.description} alternalName={item?.user?.alternalName as string} createdDate={item.created_date} id={item.id} selectedCharacter={item.user?.selectedCharacter as number} />)
+    const TweetList = [...postsData].reverse().map(item => <TweetItem key={item.id} description={item.description} alternalName={item?.user?.alternalName as string} createdDate={item.created_date} id={item.id} selectedCharacter={item.user?.selectedCharacter as number} />)
 
     return (
         <Container>
