@@ -29,13 +29,13 @@ export default function SignIn() {
 
 
   const handleGithubSignIn = () => {
-    const params = queryString.stringify({
+   /*  const params = queryString.stringify({
       client_id: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID,
       redirect_uri: 'http://localhost:3000',
       scope: ['read:user', 'user:email'].join(' '),
       allow_signup: true,
     });
-    window.location.href = `https://github.com/login/oauth/authorize?${params}`;
+    window.location.href = `https://github.com/login/oauth/authorize?${params}`; */
   }
 
   const handleSignIn = async (props: FormDataType) => {

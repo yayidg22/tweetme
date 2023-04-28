@@ -29,14 +29,14 @@ const SignUp = () => {
   const onSubmit: SubmitHandler<FormDataType> = data => handleSignUp(data)
 
   const handleGithubSignIn = () => {
-    const params = queryString.stringify({
+/*     const params = queryString.stringify({
       client_id: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID,
       redirect_uri: 'http://localhost:3000',
       scope: ['read:user', 'user:email'].join(' '),
       allow_signup: true,
     });
     window.location.href = `https://github.com/login/oauth/authorize?${params}`;
-  }
+ */  }
 
   const handleSignUp = async (props: FormDataType) => {
     try {
