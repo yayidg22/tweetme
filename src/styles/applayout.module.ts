@@ -23,7 +23,12 @@ export const Footer = styled('div')({
     display: 'flex',
     width: '100%',
     maxWidth:'700px',
-    height: '80px',
+    height: '200px',
     alignSelf:'center',
-    justifySelf:'center'
+    justifyContent:'space-between',
+    alignItems:'center',
+    '#signout':{
+        width:'250px',
+        margin:'20px'
+    }
 })

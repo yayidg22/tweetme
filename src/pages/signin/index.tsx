@@ -9,6 +9,7 @@ import { Fragment, useEffect } from 'react'
 import { SubmitHandler, useForm, } from "react-hook-form"
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { toast } from 'react-toastify'
 
 const FormSchema = z.object({
   email: z.string().email({ message: "Insert valid email address" }),
@@ -28,6 +29,7 @@ export default function SignIn() {
 
 
   const handleGithubSignIn = () => {
+    toast.warn('Feature not implemented yet')
    /*  const params = queryString.stringify({
       client_id: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID,
       redirect_uri: 'http://localhost:3000',

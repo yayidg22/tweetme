@@ -10,6 +10,9 @@ export const Container = styled('div')({
     flexDirection: 'column',
     alignItems: 'center',
     position:'relative',
+    width: '100%',
+    height:'100vh',
+    backgroundColor:'black',
 })
 
 export const TweetHeader = styled('div')({
@@ -47,6 +50,8 @@ export const TweetsContainer = styled('div')({
     overflow: 'auto',
     width: '100%',
     height:'100%',
+    maxWidth:"700px",
+    alignSelf:'center'
 })
 
 export const TweetImage = styled(Image)({
@@ -103,4 +108,27 @@ export const TextContainer = styled('div')({
         color: 'GrayText',
         fontSize: '1.5rem',
     }
+})
+
+export const Footer = styled('div')({
+    display: 'flex',
+    width: '100%',
+    maxWidth:'700px',
+    height: '80px',
+    alignSelf:'center',
+    justifyContent:'space-between',
+    alignItems:'center',
+    '#signout':{
+        width:'250px',
+        margin:'10px'
+    }
+})
+
+export const GithubLogo = styled(Image)({
+    cursor:'pointer',
+    width: '150px',
+    height:'80px',
+    objectFit: 'contain',
+    aspectRatio: '3/2',
+    filter:'invert(1)'
 })

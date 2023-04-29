@@ -116,7 +116,9 @@ export const AuthProvider = ({ children }: any) => {
     }
 
     const signOut = () => {
+        setIsLoading(true)
         Cookies.remove('token')
+        console.log("signed out")
         setUser(null)
         unauthenticateAPI()
         router.push('/signin')

@@ -10,6 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { signupService } from '@/api/auth'
 import { useAuth } from '@/contexts/auth'
 import LoadingScreen from '@/components/LoadingScreen'
+import { toast } from 'react-toastify'
 
 const FormSchema = z.object({
   fullName: z.string().min(1, { message: "Full name is required" }),
@@ -29,6 +30,7 @@ const SignUp = () => {
   const onSubmit: SubmitHandler<FormDataType> = data => handleSignUp(data)
 
   const handleGithubSignIn = () => {
+    toast.warn('Feature not implemented yet')
 /*     const params = queryString.stringify({
       client_id: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID,
       redirect_uri: 'http://localhost:3000',

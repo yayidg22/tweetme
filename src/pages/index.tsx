@@ -2,7 +2,7 @@ import { IPost, addNewPostService, usePosts } from '@/api/post';
 import TweetItem from '@/components/TweetItem/tweetitem';
 import { Characters } from '@/constants/charactersImages';
 import { useAuth } from '@/contexts/auth';
-import { Container, FormContainer, TweetHeader, TweetInput, TweetsContainer, UserImage } from '@/styles/home.module';
+import { Container, Footer, FormContainer, GithubLogo, TweetHeader, TweetInput, TweetsContainer, UserImage } from '@/styles/home.module';
 import { isEmoji } from '@/utilities/StringUtil';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -10,9 +10,10 @@ import { ReactElement, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 import { CustomPage } from './_app';
 import AppLayout from '@/layouts/applayout';
+import { StyledButton } from '@/styles/Global';
 
 const Home: CustomPage = () => {
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const router = useRouter();
   const [inputValue, setInputValue] = useState('');
   const { data: PostsList, error: PostsError, isLoading: PostsIsLoading, mutate: PostsMutate } = usePosts();
@@ -64,10 +65,23 @@ const Home: CustomPage = () => {
       <TweetsContainer>
         {TweetList}
       </TweetsContainer>
+
+      <Footer>
+        <GithubLogo
+          onClick={() => window.open('https://github.com/yayidg22','_blank')}
+          src={'/images/githubFullLogo.png'}
+          alt="Logo"
+          width={200}
+          height={200}
+          priority
+        />
+        <StyledButton id="signout" onClick={() => signOut()}>Sign out</StyledButton>
+
+      </Footer>
     </Container>
   )
 }
-
+/* 
 Home.getLayout = function getLayout(page: ReactElement) {
   return (
     <AppLayout>
@@ -75,7 +89,7 @@ Home.getLayout = function getLayout(page: ReactElement) {
     </AppLayout>
   )
 }
-
+ */
 Home.requiresAuth = true;
 
 export default Home

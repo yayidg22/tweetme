@@ -1,6 +1,8 @@
-import { BodyContainer, Container, Footer } from "@/styles/applayout.module"
+import { StyledButton } from "@/styles/Global";
+import { BodyContainer, Container, Footer } from "@/styles/applayout.module";
 
 export default function AppLayout({ children }: any) {
+
   return (
     <Container>
       <BodyContainer>
@@ -10,6 +12,7 @@ export default function AppLayout({ children }: any) {
         <h1>
           FOOTER
         </h1>
+        <StyledButton id="signout" /* onClick={() => signOut()} */>Sign out</StyledButton>
       </Footer>
     </Container>
   )
