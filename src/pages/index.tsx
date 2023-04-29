@@ -3,29 +3,33 @@ import TweetItem from '@/components/TweetItem/tweetitem';
 import { Characters } from '@/constants/charactersImages';
 import { useAuth } from '@/contexts/auth';
 import { Container, FormContainer, TweetHeader, TweetInput, TweetsContainer, UserImage } from '@/styles/home.module';
+import { isEmoji } from '@/utilities/StringUtil';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useMemo, useState } from 'react';
+import { ReactElement, useMemo, useState } from 'react';
+import { toast } from 'react-toastify';
+import { CustomPage } from './_app';
+import AppLayout from '@/layouts/applayout';
 
-const Home = () => {
+const Home: CustomPage = () => {
   const { user } = useAuth();
   const router = useRouter();
-
-  const { data: PostsList, error: PostsError, isLoading: PostsIsLoading, mutate: PostsMutate } = usePosts();
   const [inputValue, setInputValue] = useState('');
+  const { data: PostsList, error: PostsError, isLoading: PostsIsLoading, mutate: PostsMutate } = usePosts();
 
   const handlePost = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (inputValue.length === 0) {
-      return;
+    if (!isEmoji(inputValue)) {
+      toast.error('Contains non-emoji characters')
+      return
     }
     try {
       const response = await addNewPostService({
         description: inputValue
       });
       if (response.ok) {
-        setInputValue('');
         PostsMutate();
+        setInputValue('')
       }
     } catch (error) {
       alert('error')
@@ -54,13 +58,21 @@ const Home = () => {
           height={200}
           priority />
         <FormContainer onSubmit={handlePost}>
-          <TweetInput onChange={(e) => setInputValue(e.target.value)} value={inputValue} placeholder='Type some emojis!' />
+          <TweetInput value={inputValue} onChange={(e) => setInputValue(e.target.value)} id="inputValue" placeholder='Type some emojis!' />
         </FormContainer>
       </TweetHeader>
       <TweetsContainer>
         {TweetList}
       </TweetsContainer>
     </Container>
+  )
+}
+
+Home.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <AppLayout>
+      {page}
+    </AppLayout>
   )
 }
 

@@ -1,17 +1,44 @@
-import { IPost, getAllPostsByUserService, useMyPosts } from '@/api/post';
+import { updateSelectedCharacterService } from '@/api/auth';
+import { IPost, useMyPosts } from '@/api/post';
+import CheckRender from '@/components/CheckRender';
 import TweetItem from '@/components/TweetItem/tweetitem';
 import { Characters } from '@/constants/charactersImages';
 import { useAuth } from '@/contexts/auth';
+import { StyledButton } from '@/styles/Global';
 import { Banner, Container, TweetHeader, TweetsContainer, UserImage } from '@/styles/user.module';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { useMemo } from 'react';
-
+import { useMemo, useState } from 'react';
 
 const User = () => {
-    const { user } = useAuth();
-    const router = useRouter();
+    const { user,updateUserData } = useAuth();
     const { data, error, isLoading, mutate } = useMyPosts(user?.alternalName as string);
+    const [localSelectedCharacter, setLocalSelectedCharacter] = useState(user?.selectedCharacter || 1);
+    const selectedCharacterImage = Characters.find(item => item.id === localSelectedCharacter)?.image as string
+
+    const handleChangeLocalSelectedCharacter = () => {
+        if (localSelectedCharacter === 5) {
+            setLocalSelectedCharacter(1)
+        } else {
+            setLocalSelectedCharacter(prev => prev + 1);
+        }
+    }
+
+    const handleSaveProfileChanges = async () => {
+        try {
+            const response = await updateSelectedCharacterService(localSelectedCharacter);
+            if (response.ok) {
+                mutate();
+                updateUserData({
+                    alternalName: user?.alternalName as string,
+                    email: user?.email as string,
+                    name: user?.name as string,
+                    selectedCharacter: localSelectedCharacter
+                })
+            }
+        } catch (error) {
+            alert('error')
+        }
+    }
 
     const TweetList = useMemo(() => {
         const postsData: IPost[] = data?.data?.posts as IPost[]
@@ -28,9 +55,10 @@ const User = () => {
             </Head>
             <Banner>
                 <UserImage
-                    onClick={() => router.push('/user/me')}
-                    src={Characters.find(item => item.id === user?.selectedCharacter)?.image as string}
+                    onClick={handleChangeLocalSelectedCharacter}
+                    src={selectedCharacterImage}
                     alt="Logo"
+                    title="Click for change character"
                     width={200}
                     height={200}
                     priority />
@@ -39,6 +67,11 @@ const User = () => {
                 <span>
                     {user?.alternalName}
                 </span>
+                <CheckRender allowed={user?.selectedCharacter !== localSelectedCharacter}>
+                    <div id="actionContainer">
+                        <StyledButton onClick={handleSaveProfileChanges}>Save changes</StyledButton>
+                    </div>
+                </CheckRender>
             </TweetHeader>
             <TweetsContainer>
                 {TweetList}
@@ -46,6 +79,5 @@ const User = () => {
         </Container>
     )
 }
-
 
 export default User

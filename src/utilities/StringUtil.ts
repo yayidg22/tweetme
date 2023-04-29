@@ -12,6 +12,11 @@ export function localToString(s: any) {
     return String(s)
 }
 
+export const isEmoji = (s: any) : boolean => {
+    const emojiPattern = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
+    return emojiPattern.test(s);
+}
+
 export const getLastCharFromString = (s: number): string => {
     if (!s) {
         return ""

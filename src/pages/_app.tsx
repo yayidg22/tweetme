@@ -4,10 +4,13 @@ import { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import localFont from 'next/font/local'
 import Head from 'next/head'
-import { Fragment } from 'react'
+import { Fragment,ReactElement,ReactNode } from 'react'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-type CustomPage = NextPage & {
+export type CustomPage = NextPage & {
   requiresAuth?: boolean;
+  getLayout?: (page: React.ReactElement) => React.ReactNode;
 };
 interface CustomAppProps extends Omit<AppProps, "Component"> {
   Component: CustomPage;
@@ -35,7 +38,9 @@ const segoeUi = localFont({
 })
 
 export default function App({ Component, pageProps }: CustomAppProps) {
-  return (
+  // Use the layout defined at the page level, if available
+  const getLayout = Component.getLayout ?? ((page) => page)
+  return getLayout(
     <Fragment>
       {Component.requiresAuth && (
         <Head>
@@ -54,6 +59,7 @@ export default function App({ Component, pageProps }: CustomAppProps) {
       )}
       <AuthProvider>
         <main className={segoeUi.className}>
+          <ToastContainer />
           <Component {...pageProps} />
         </main>
       </AuthProvider>

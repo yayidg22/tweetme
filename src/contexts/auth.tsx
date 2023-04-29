@@ -8,7 +8,7 @@ import LoadingScreen from '@/components/LoadingScreen/loadingscreen';
 interface IUser {
     name: string;
     email: string;
-    selectedCharacter:number;
+    selectedCharacter: number;
     alternalName: string
 }
 
@@ -19,6 +19,7 @@ interface IAuth {
     isLoading: boolean,
     signOut: () => void;
     restoreSession: (token: string) => void;
+    updateUserData: (data: IUser) => void;
 }
 
 const AuthContext = createContext<IAuth>({
@@ -27,6 +28,7 @@ const AuthContext = createContext<IAuth>({
     restoreSession: () => { },
     signIn: async () => { return false },
     signOut: () => { },
+    updateUserData: () => { },
     user: null
 });
 
@@ -91,7 +93,6 @@ export const AuthProvider = ({ children }: any) => {
             const response = await signinService({ email, password })
             setIsLoading(false);
             if (response.ok) {
-                console.log("Got token")
                 Cookies.set('token', response.data.token, { expires: 60 })
                 authenticateAPI(response.data.token);
                 setUser({
@@ -110,6 +111,10 @@ export const AuthProvider = ({ children }: any) => {
         }
     }
 
+    const updateUserData = (data: IUser) => {
+        setUser(data);
+    }
+
     const signOut = () => {
         Cookies.remove('token')
         setUser(null)
@@ -121,7 +126,7 @@ export const AuthProvider = ({ children }: any) => {
     if (isLoading) return <LoadingScreen />
 
     return (
-        <AuthContext.Provider value={{ user, signIn, signOut, restoreSession, isLoading, isAuthenticated }}>
+        <AuthContext.Provider value={{ user, signIn, signOut, restoreSession, updateUserData, isLoading, isAuthenticated }}>
             {children}
         </AuthContext.Provider>
     )

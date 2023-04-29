@@ -3,12 +3,12 @@ import LoadingScreen from '@/components/LoadingScreen'
 import { useAuth } from '@/contexts/auth'
 import { ButtonIcon, FieldError, StyledButton, StyledButtonSecondary, StyledInput, StyledLink } from '@/styles/Global'
 import { Container, FormContainer, Line, Logo, Row } from '@/styles/login.module.ts'
-import { zodResolver } from '@hookform/resolvers/zod'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { Fragment, useEffect } from 'react'
 import { SubmitHandler, useForm, } from "react-hook-form"
 import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 const FormSchema = z.object({
   email: z.string().email({ message: "Insert valid email address" }),

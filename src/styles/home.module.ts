@@ -8,11 +8,8 @@ export const Button = styled('button')({
 export const Container = styled('div')({
     display: 'flex',
     flexDirection: 'column',
-    width: '100%',
-    height: '100vh',
-    backgroundColor: 'black',
     alignItems: 'center',
-    overflow: 'hidden'
+    position:'relative',
 })
 
 export const TweetHeader = styled('div')({
@@ -47,16 +44,9 @@ export const FormContainer = styled('form')({
 export const TweetsContainer = styled('div')({
     display: 'flex',
     flexDirection: 'column',
-    overflowY: 'auto',
-    overflowX: 'hidden',
+    overflow: 'auto',
     width: '100%',
-    maxWidth: '700px',
-    height: '100vh',
-    backgroundColor: 'black',
-    alignItems: 'center',
-    borderWidth: "1px",
-    borderColor: 'gray',
-    borderStyle: 'solid',
+    height:'100%',
 })
 
 export const TweetImage = styled(Image)({
@@ -90,7 +80,7 @@ export const TweetItemContainer = styled('div')({
 })
 
 export const UserImage = styled(Image)({
-    cursor:'pointer',
+    cursor: 'pointer',
     margin: '15px',
     width: '60px',
     height: '60px',

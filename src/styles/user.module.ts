@@ -26,8 +26,9 @@ export const Banner = styled('div')({
 
 export const TweetHeader = styled('div')({
     display: 'flex',
-    flexDirection: 'column',
-    justifyContent:'end',
+    flexDirection: 'row',
+    justifyContent:'space-between',
+    alignItems:'end',
     height:'150px',
     maxWidth: '700px',
     width: '100%',
@@ -39,6 +40,10 @@ export const TweetHeader = styled('div')({
         margin:'15px',
         fontSize: '1.5rem',
         fontWeight:'500'
+    },
+    '#actionContainer':{
+        margin:'15px',
+        width:'200px',
     }
 })
 
