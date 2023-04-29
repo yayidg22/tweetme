@@ -80,4 +80,6 @@ const User = () => {
     )
 }
 
+User.requiresAuth = true;
+
 export default User
