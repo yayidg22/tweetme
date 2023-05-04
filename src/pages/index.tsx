@@ -68,7 +68,7 @@ const Home: CustomPage = () => {
 
       <Footer>
         <GithubLogo
-          onClick={() => window.open('https://github.com/yayidg22','_blank')}
+          onClick={() => window.open('https://github.com/yayidg22/tweetme','_blank')}
           src={'/images/githubFullLogo.png'}
           alt="Logo"
           width={200}
