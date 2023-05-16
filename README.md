@@ -8,6 +8,7 @@ A project using create next app [create-next-app@latest](https://nextjs.org/docs
 Tweetme is my version of : [https://xn--uo8h.t3.gg/](https://xn--uo8h.t3.gg/) (A full stack app made with t3 stack)
 
 But in this version, front-end and back-end are separated.
+See [back-end on github ](https://github.com/yayidg22/tweetmeBackend/)
 
 ## Libraries on tweetme :
 
