@@ -13,8 +13,13 @@ export function localToString(s: any) {
 }
 
 export const isEmoji = (s: any) : boolean => {
-    const emojiPattern = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
-    return emojiPattern.test(s);
+    const regex = /[\u{1F300}-\u{1F6FF}]/u;
+    for (const char of s) {
+        if (!regex.test(char)) {
+            return false;
+      }
+    }
+    return true;
 }
 
 export const getLastCharFromString = (s: number): string => {
